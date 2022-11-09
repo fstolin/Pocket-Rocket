@@ -11,7 +11,7 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("You have bumped into something friendly!");
                 break;
             case "Finish":
-                Debug.Log("You have finished the level!");
+                NextLevel();
                 break;
             default:
                 RestartGame();
@@ -21,6 +21,11 @@ public class CollisionHandler : MonoBehaviour
 
     private void RestartGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
