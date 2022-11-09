@@ -22,7 +22,6 @@ public class Movement : MonoBehaviour
     {
         ProcessThrust();
         ProcessRotation();
-
     }
 
     // Processing the (vertical) thrust of the rocket
