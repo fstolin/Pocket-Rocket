@@ -6,6 +6,7 @@ public class Movement : MonoBehaviour
 {
 
     Rigidbody rb;
+    AudioSource audioSource;
     [SerializeField] float rocketThrustForce = 720f;
     [SerializeField] float rotationForce = 100f;
     [SerializeField] float worldGravity = 9.81f;
@@ -14,7 +15,10 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+
         Physics.gravity = worldGravity * Vector3.down;
+        audioSource.Play();
     }
 
     // Update is called once per frame
@@ -27,10 +31,12 @@ public class Movement : MonoBehaviour
     // Processing the (vertical) thrust of the rocket
     void ProcessThrust()
     {
-        if (Input.GetKey(KeyCode.Space)) 
-        {
+        if (Input.GetKey(KeyCode.Space)) {
             rb.AddRelativeForce(Vector3.up * rocketThrustForce * Time.deltaTime);
-        } 
+            playEngineSound();
+        } else {
+            stopEngineSound();
+        }
     }
 
     // Processing rotation of the rocket using AD / arrow keys
@@ -53,5 +59,15 @@ public class Movement : MonoBehaviour
         rb.transform.Rotate(vec * rotationForce * Time.deltaTime);
         // Unfreezing rotation of physics system
         rb.freezeRotation = false;
+    }
+
+    private void playEngineSound()
+    {
+        if (!audioSource.isPlaying) audioSource.Play();
+    }
+
+    private void stopEngineSound()
+    {
+        audioSource.Stop();
     }
 }
