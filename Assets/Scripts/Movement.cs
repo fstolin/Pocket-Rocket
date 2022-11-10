@@ -5,11 +5,13 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
 
-    Rigidbody rb;
-    AudioSource audioSource;
     [SerializeField] float rocketThrustForce = 720f;
     [SerializeField] float rotationForce = 100f;
     [SerializeField] float worldGravity = 9.81f;
+    [SerializeField] AudioClip mainEngine;
+
+    Rigidbody rb;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +20,7 @@ public class Movement : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         Physics.gravity = worldGravity * Vector3.down;
-        audioSource.Play();
+        audioSource.PlayOneShot(mainEngine);
     }
 
     // Update is called once per frame
@@ -63,7 +65,7 @@ public class Movement : MonoBehaviour
 
     private void playEngineSound()
     {
-        if (!audioSource.isPlaying) audioSource.Play();
+        if (!audioSource.isPlaying) audioSource.PlayOneShot(mainEngine);
     }
 
     private void stopEngineSound()
