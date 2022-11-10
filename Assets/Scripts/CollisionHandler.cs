@@ -3,6 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+    [SerializeField] float levelRestartDelay = 2f;
+    [SerializeField] float levelNextDelay = 1f;
+    bool crashed = false;
+
     private void OnCollisionEnter(Collision collision)
     {
         switch (collision.gameObject.tag)
@@ -11,17 +15,35 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("You have bumped into something friendly!");
                 break;
             case "Finish":
-                NextLevel();
+                if (!crashed) StartFinishSequence();
                 break;
             default:
-                Invoke("RestartGame", 2f);
+                StartCrashSequence();
                 break;
         }
+    }
+
+    private void StartCrashSequence()
+    {
+        // todo add SFX
+        // todo add particle effects
+        crashed = true;
+        Invoke("RestartGame",levelRestartDelay);
+        GetComponent<Movement>().enabled = false;
+        GetComponent<AudioSource>().Stop();
+    }
+    
+    private void StartFinishSequence()
+    {
+        Invoke("NextLevel", levelNextDelay);
+        GetComponent<Movement>().enabled = false;
+        GetComponent<AudioSource>().Stop();
     }
 
     private void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        crashed = false;
     }
 
     private void NextLevel()
