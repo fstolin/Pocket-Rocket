@@ -14,7 +14,7 @@ public class CollisionHandler : MonoBehaviour
                 NextLevel();
                 break;
             default:
-                RestartGame();
+                Invoke("RestartGame", 2f);
                 break;
         }
     }
