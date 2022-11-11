@@ -10,7 +10,7 @@ public class CollisionHandler : MonoBehaviour
 
     AudioSource audioSource;
 
-    bool crashed = false;
+    bool isTransitioning = false;
 
     private void Start()
     {
@@ -19,16 +19,19 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // Do not do any other actions if the level is transitioning
+        if (isTransitioning) return; 
+
         switch (collision.gameObject.tag)
         {
             case "Friendly":
                 Debug.Log("You have bumped into something friendly!");
                 break;
             case "Finish":
-                if (!crashed) StartFinishSequence();
+                if (!isTransitioning) StartFinishSequence();
                 break;
             default:
-                if (!crashed) StartCrashSequence();
+                if (!isTransitioning) StartCrashSequence();
                 break;
         }
     }
@@ -40,7 +43,7 @@ public class CollisionHandler : MonoBehaviour
         // Then start playing the crash effect
         audioSource.PlayOneShot(crashAudio);
         // todo add particle effects
-        crashed = true;
+        isTransitioning = true;
         Invoke("RestartGame",levelRestartDelay);
         GetComponent<Movement>().enabled = false;
     }
@@ -52,6 +55,7 @@ public class CollisionHandler : MonoBehaviour
         // Then start playing the crash effect
         audioSource.PlayOneShot(successAudio);
         // todo add particle effects
+        isTransitioning = true;
         Invoke("NextLevel", levelNextDelay);
         GetComponent<Movement>().enabled = false;
     }
@@ -60,11 +64,12 @@ public class CollisionHandler : MonoBehaviour
     {
         audioSource.Stop();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        crashed = false;
+        isTransitioning = false;
     }
 
     private void NextLevel()
     {
+        isTransitioning = false;
         audioSource.Stop();
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (sceneIndex + 1 == SceneManager.sceneCountInBuildSettings) 
