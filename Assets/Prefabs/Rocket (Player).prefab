@@ -241,3 +241,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelRestartDelay: 2
   levelNextDelay: 1
+  crashAudio: {fileID: 8300000, guid: cc0e4de9324cb604d8b126482bb4c352, type: 3}
+  successAudio: {fileID: 8300000, guid: 8fc83f69fbb7712499b29d28de9010a8, type: 3}

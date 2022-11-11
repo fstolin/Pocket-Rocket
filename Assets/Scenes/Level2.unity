@@ -603,14 +603,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 73794956, guid: dc5ff5885cc8ebd4096e63ab288b6c35, type: 3}
-      propertyPath: crashAudio
-      value: 
-      objectReference: {fileID: 8300000, guid: cc0e4de9324cb604d8b126482bb4c352, type: 3}
-    - target: {fileID: 73794956, guid: dc5ff5885cc8ebd4096e63ab288b6c35, type: 3}
-      propertyPath: successAudio
-      value: 
-      objectReference: {fileID: 8300000, guid: 8fc83f69fbb7712499b29d28de9010a8, type: 3}
     - target: {fileID: 5883650131988778929, guid: dc5ff5885cc8ebd4096e63ab288b6c35, type: 3}
       propertyPath: m_RootOrder
       value: 5

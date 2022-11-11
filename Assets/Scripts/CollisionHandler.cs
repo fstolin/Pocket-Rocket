@@ -28,28 +28,32 @@ public class CollisionHandler : MonoBehaviour
                 if (!crashed) StartFinishSequence();
                 break;
             default:
-                StartCrashSequence();
+                if (!crashed) StartCrashSequence();
                 break;
         }
     }
 
     private void StartCrashSequence()
     {
+        // First stop the engine audio
+        GetComponent<AudioSource>().Stop();
+        // Then start playing the crash effect
         audioSource.PlayOneShot(crashAudio);
         // todo add particle effects
         crashed = true;
         Invoke("RestartGame",levelRestartDelay);
         GetComponent<Movement>().enabled = false;
-        GetComponent<AudioSource>().Stop();
     }
     
     private void StartFinishSequence()
     {
+        // First stop the engine audio
+        GetComponent<AudioSource>().Stop();
+        // Then start playing the crash effect
         audioSource.PlayOneShot(successAudio);
         // todo add particle effects
         Invoke("NextLevel", levelNextDelay);
         GetComponent<Movement>().enabled = false;
-        GetComponent<AudioSource>().Stop();
     }
 
     private void RestartGame()
