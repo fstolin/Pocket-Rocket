@@ -42,16 +42,8 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            stopEngineSound();
-            mainThruster.Stop();
+            StopThrusting();
         }
-    }
-
-    private void StartThrusting()
-    {
-        rb.AddRelativeForce(Vector3.up * rocketThrustForce * Time.deltaTime);
-        playEngineSound();
-        HandleRocketParticles(mainThruster);
     }
 
     // Processing rotation of the rocket using AD / arrow keys
@@ -62,18 +54,41 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
-            ApplyRotation(Vector3.forward);
-            HandleRocketParticles(sideThrusterLeft);
+            RotateLeft();
             rotating = true;
         }
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
-            ApplyRotation(Vector3.back);
-            HandleRocketParticles(sideThrusterRight);
+            RotateRight();
             rotating = true;
         }
 
         if (!rotating) DisableSideParticles();
+    }
+
+    private void StartThrusting()
+    {
+        rb.AddRelativeForce(Vector3.up * rocketThrustForce * Time.deltaTime);
+        playEngineSound();
+        HandleRocketParticles(mainThruster);
+    }
+
+    private void StopThrusting()
+    {
+        stopEngineSound();
+        mainThruster.Stop();
+    }
+
+    private void RotateLeft()
+    {
+        ApplyRotation(Vector3.forward);
+        HandleRocketParticles(sideThrusterLeft);
+    }
+
+    private void RotateRight()
+    {
+        ApplyRotation(Vector3.back);
+        HandleRocketParticles(sideThrusterRight);
     }
 
     private void ApplyRotation(Vector3 vec)
