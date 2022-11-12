@@ -11,12 +11,14 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] ParticleSystem successParticles;
     [SerializeField] ParticleSystem crashParticles;
 
+    Cheater cheat;
     AudioSource audioSource;
 
     bool isTransitioning = false;
 
     private void Start()
     {
+        cheat = GetComponent<Cheater>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -34,7 +36,7 @@ public class CollisionHandler : MonoBehaviour
                 if (!isTransitioning) StartFinishSequence();
                 break;
             default:
-                if (!isTransitioning) StartCrashSequence();
+                if (!isTransitioning && !cheat.IsInvincible()) StartCrashSequence();
                 break;
         }
     }
@@ -70,7 +72,7 @@ public class CollisionHandler : MonoBehaviour
         isTransitioning = false;
     }
 
-    private void NextLevel()
+    public void NextLevel()
     {
         isTransitioning = false;
         audioSource.Stop();
