@@ -5,8 +5,11 @@ public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float levelRestartDelay = 2f;
     [SerializeField] float levelNextDelay = 1f;
+    [SerializeField] float explosionDuration = 0.5f;
     [SerializeField] AudioClip crashAudio;
     [SerializeField] AudioClip successAudio;
+    [SerializeField] ParticleSystem successParticles;
+    [SerializeField] ParticleSystem crashParticles;
 
     AudioSource audioSource;
 
@@ -42,8 +45,8 @@ public class CollisionHandler : MonoBehaviour
         GetComponent<AudioSource>().Stop();
         // Then start playing the crash effect
         audioSource.PlayOneShot(crashAudio);
-        // todo add particle effects
         isTransitioning = true;
+        StartExplosion();
         Invoke("RestartGame",levelRestartDelay);
         GetComponent<Movement>().enabled = false;
     }
@@ -54,7 +57,7 @@ public class CollisionHandler : MonoBehaviour
         GetComponent<AudioSource>().Stop();
         // Then start playing the crash effect
         audioSource.PlayOneShot(successAudio);
-        // todo add particle effects
+        successParticles.Play();
         isTransitioning = true;
         Invoke("NextLevel", levelNextDelay);
         GetComponent<Movement>().enabled = false;
@@ -78,5 +81,11 @@ public class CollisionHandler : MonoBehaviour
         } else {
             SceneManager.LoadScene(sceneIndex + 1); 
         }
+    }
+
+    private void StartExplosion()
+    {
+        crashParticles.Play();
+        if (isTransitioning) Invoke("StartExplosion", explosionDuration);
     }
 }
