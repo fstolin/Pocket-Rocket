@@ -6,6 +6,10 @@ public class QuitGame : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape)) Application.Quit();
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+            Debug.Log("End of application");
+        }
     }
 }
