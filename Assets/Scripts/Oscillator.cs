@@ -23,7 +23,8 @@ public class Oscillator : MonoBehaviour
 
     void Update()
     {
-        if (Time.time == 0f) return;
+        if (Time.time < Mathf.Epsilon) return;
+        if (period < Mathf.Epsilon) return;
         // Number of cycles already oscillated
         float cycles = Time.time / period;        
         // Range of sin function - 1 cycle
@@ -34,7 +35,7 @@ public class Oscillator : MonoBehaviour
         movementProgress = (rawSinWave + 1) / 2;
 
         Oscillate();
-        if (movementProgress < 0.005f) PlayThud();
+        if (movementProgress < 0.005f && thudAudio != null) PlayThud();
     }
 
     void Oscillate()
