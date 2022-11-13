@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Oscillator : MonoBehaviour
+public class LightOscillator : MonoBehaviour
 {
     [SerializeField] Vector3 maxMovementRange;
     [SerializeField] [Range (0,1)] float movementProgress;
@@ -32,6 +32,7 @@ public class Oscillator : MonoBehaviour
         float rawSinWave = Mathf.Sin(cycles * tau);
         // Sin goes from -1 to 1, convert to 0 to 1
         movementProgress = (rawSinWave + 1) / 2;
+        Debug.Log(movementProgress);
 
         Oscillate();
         if (movementProgress < 0.005f) PlayThud();

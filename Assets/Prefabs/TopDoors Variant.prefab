@@ -7,6 +7,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 900783291990854490, guid: 752a645849ca1984b9b6df530d5fe693, type: 3}
+      propertyPath: m_Volume
+      value: 0.511
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291064449357456905, guid: 752a645849ca1984b9b6df530d5fe693, type: 3}
+      propertyPath: period
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291064449357456905, guid: 752a645849ca1984b9b6df530d5fe693, type: 3}
+      propertyPath: thudAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 3e31d7f950097cd4f895fbe04eb138f8, type: 3}
+    - target: {fileID: 3291064449357456905, guid: 752a645849ca1984b9b6df530d5fe693, type: 3}
+      propertyPath: movementProgress
+      value: 0.725
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291064449357456905, guid: 752a645849ca1984b9b6df530d5fe693, type: 3}
+      propertyPath: maxMovementRange.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291064449357456905, guid: 752a645849ca1984b9b6df530d5fe693, type: 3}
+      propertyPath: maxMovementRange.y
+      value: 5.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5904463136275443899, guid: 752a645849ca1984b9b6df530d5fe693, type: 3}
       propertyPath: m_RootOrder
       value: 0
